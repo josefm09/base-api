@@ -32,7 +32,7 @@ public class UserController {
 
         String token = Jwts
                 .builder()
-                .setId("softtekJWT")
+                .setId("jcfloresJWT")
                 .setSubject(username)
                 .claim("authorities",
                         grantedAuthorities.stream()
