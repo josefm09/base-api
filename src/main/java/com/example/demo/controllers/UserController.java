@@ -30,6 +30,7 @@ public class UserController {
 
     @PostMapping("user")
     public ResponseEntity<User> login(@RequestParam("user") String username, @RequestParam("password") String pwd){
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, pwd));
 
@@ -48,13 +49,13 @@ public class UserController {
     }
 
     private String getJWTToken(String username) {
-        String secretKey = "mySecretKey";
+        String secretKey = "${base.app.jwtSecret}";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
 
         String token = Jwts
                 .builder()
-                .setId("${base.app.jwtSecret}")
+                .setId("${base.app.jwtId}")
                 .setSubject(username)
                 .claim("authorities",
                         grantedAuthorities.stream()
